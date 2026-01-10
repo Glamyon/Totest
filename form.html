@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOAOXOR -- Project Intake Form (V2 · Revenue-First)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .opening-note {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .opening-note p {
+            margin-bottom: 12px;
+        }
+        
+        .opening-note p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #dc2626;
+        }
+        
+        .helper-text {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+        
+        .helper-text.important {
+            color: #dc2626;
+            font-weight: 500;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #1e293b;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #94a3b8;
+        }
+        
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .checkbox-option, .radio-option {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .checkbox-option input, .radio-option input {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+        
+        .pre-submit-note {
+            background-color: #fef3c7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #1e293b;
+        }
+        
+        button[type="submit"]:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+        
+        .footer-note {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: #dc2626;
+        }
+        
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GOAOXOR -- Project Intake Form </h1>
+        </header>
+        
+        <div class="form-container">
+            <div class="opening-note">
+                <p>We work with a small number of projects at a time.</p>
+                <p>This form helps us decide whether it makes sense to continue -- for both sides.</p>
+                <p style="margin-top: 12px;"><strong>There is no sales call.</strong></p>
+                <p>If it looks like a good fit, we'll follow up by email.</p>
+            </div>
+            
+            <form id="projectIntakeForm">
+                <!-- 1. Your name -->
+                <div class="form-group">
+                    <label for="name" class="required">Your name</label>
+                    <input type="text" id="name" name="name" placeholder="Jane / Alex / Michael" required>
+                    <p class="helper-text">First name is fine.</p>
+                    <div class="error-message" id="name-error">Please enter your name</div>
+                </div>
+                
+                <!-- 2. Email address -->
+                <div class="form-group">
+                    <label for="email" class="required">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <!-- 3. What are you trying to achieve? -->
+                <div class="form-group">
+                    <label for="objective" class="required">In one or two sentences, what are you trying to achieve with this project?</label>
+                    <textarea id="objective" name="objective" rows="3" placeholder="Example: Launch a new product with a short explainer video for our website." required></textarea>
+                    <p class="helper-text important">If it's hard to explain, that's usually a signal worth exploring.</p>
+                    <div class="error-message" id="objective-error">Please describe what you're trying to achieve</div>
+                </div>
+                
+                <!-- 4. What kind of work do you need? -->
+                <div class="form-group">
+                    <label class="required">What kind of work do you need? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="Video production / editing">
+                            Video production / editing
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="Animation / motion design">
+                            Animation / motion design
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="Branding / visual identity">
+                            Branding / visual identity
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="UI / UX or website design">
+                            UI / UX or website design
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="Social media content">
+                            Social media content
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="work_type" value="Not sure yet">
+                            Not sure yet
+                        </label>
+                    </div>
+                    <div class="error-message" id="work-type-error">Please select at least one option</div>
+                </div>
+                
+                <!-- 5. How clear is the scope right now? -->
+                <div class="form-group">
+                    <label class="required">How clear is the scope at this stage?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="scope_clarity" value="Very clear -- I know exactly what I need" required>
+                            Very clear -- I know exactly what I need
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="scope_clarity" value="Somewhat clear -- details still evolving">
+                            Somewhat clear -- details still evolving
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="scope_clarity" value="Early stage -- I need help shaping the brief">
+                            Early stage -- I need help shaping the brief
+                        </label>
+                    </div>
+                    <div class="error-message" id="scope-clarity-error">Please select an option</div>
+                </div>
+                
+                <!-- 6. Timeline -->
+                <div class="form-group">
+                    <label class="required">When do you ideally want this to start?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="Immediately (if availability allows)" required>
+                            Immediately (if availability allows)
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="Within 2–4 weeks">
+                            Within 2–4 weeks
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="Flexible">
+                            Flexible
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="Just exploring">
+                            Just exploring
+                        </label>
+                    </div>
+                    <div class="error-message" id="timeline-error">Please select an option</div>
+                </div>
+                
+                <!-- 7. Budget range -->
+                <div class="form-group">
+                    <label class="required">Estimated budget range (USD)</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="Under $300 (limited availability)" required>
+                            Under $300 (limited availability)
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="$300 – $800">
+                            $300 – $800
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="$800 – $2,000">
+                            $800 – $2,000
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="$2,000 – $5,000">
+                            $2,000 – $5,000
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="$5,000+ (priority)">
+                            $5,000+ (priority)
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="budget" value="Not sure yet">
+                            Not sure yet
+                        </label>
+                    </div>
+                    <div class="error-message" id="budget-error">Please select an option</div>
+                </div>
+                
+                <!-- 8. How do you prefer to work? -->
+                <div class="form-group">
+                    <label class="required">How do you prefer to work?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="work_preference" value="Async communication (email / messages)" required>
+                            Async communication (email / messages)
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="work_preference" value="Structured milestones with clear check-ins">
+                            Structured milestones with clear check-ins
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="work_preference" value="Flexible, guidance-driven collaboration">
+                            Flexible, guidance-driven collaboration
+                        </label>
+                    </div>
+                    <div class="error-message" id="work-preference-error">Please select an option</div>
+                </div>
+                
+                <!-- 9. Anything else we should know? -->
+                <div class="form-group">
+                    <label for="additional_context">Additional context (optional)</label>
+                    <textarea id="additional_context" name="additional_context" rows="3" placeholder="Links, references, constraints, or anything that might help us understand the situation."></textarea>
+                </div>
+                
+                <!-- Pre-submit note -->
+                <div class="pre-submit-note">
+                    <p>If you're unsure about budget or scope, that's okay.</p>
+                    <p>We'll first decide whether this project is worth pursuing -- for both sides.</p>
+                </div>
+                
+                <!-- Submit button -->
+                <button type="submit" id="submitBtn">Submit project details</button>
+                
+                <!-- Success message -->
+                <div class="success-message" id="successMessage">
+                    <h3>Thank you for your submission!</h3>
+                    <p>We've received your project details and will review them shortly. If it looks like a good fit, we'll follow up by email.</p>
+                </div>
+            </form>
+        </div>
+        
+        <div class="footer-note">
+            <p>We don't do sales calls.</p>
+            <p>Communication happens asynchronously by email to keep things clear and efficient.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('projectIntakeForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            
+            // 翻译映射表
+            const translations = {
+                "Your name": "你的姓名",
+                "First name is fine.": "只需填写名字即可。",
+                "Email address": "邮箱地址",
+                "In one or two sentences, what are you trying to achieve with this project?": "用一两句话描述，您希望通过这个项目实现什么目标？",
+                "Example: Launch a new product with a short explainer video for our website.": "例如：为我们的网站制作一个简短的产品介绍视频来发布新产品。",
+                "If it's hard to explain, that's usually a signal worth exploring.": "如果难以解释，这通常是一个值得探讨的信号。",
+                "What kind of work do you need? (Select all that apply)": "您需要哪种类型的工作？（可多选）",
+                "Video production / editing": "视频制作/编辑",
+                "Animation / motion design": "动画/动态设计",
+                "Branding / visual identity": "品牌/视觉识别",
+                "UI / UX or website design": "UI/UX或网站设计",
+                "Social media content": "社交媒体内容",
+                "Not sure yet": "还不确定",
+                "How clear is the scope at this stage?": "现阶段项目范围的明确程度如何？",
+                "Very clear -- I know exactly what I need": "非常明确 -- 我确切知道自己需要什么",
+                "Somewhat clear -- details still evolving": "比较明确 -- 细节仍在完善中",
+                "Early stage -- I need help shaping the brief": "早期阶段 -- 我需要帮助制定项目大纲",
+                "When do you ideally want this to start?": "您希望何时开始这项工作？",
+                "Immediately (if availability allows)": "立即开始（如果时间允许）",
+                "Within 2–4 weeks": "2-4周内",
+                "Flexible": "时间灵活",
+                "Just exploring": "只是初步了解",
+                "Estimated budget range (USD)": "预计预算范围（美元）",
+                "Under $300 (limited availability)": "低于300美元（时间有限）",
+                "$300 – $800": "300 – 800美元",
+                "$800 – $2,000": "800 – 2,000美元",
+                "$2,000 – $5,000": "2,000 – 5,000美元",
+                "$5,000+ (priority)": "5,000美元以上（优先处理）",
+                "How do you prefer to work?": "您更喜欢哪种工作方式？",
+                "Async communication (email / messages)": "异步沟通（电子邮件/消息）",
+                "Structured milestones with clear check-ins": "有明确检查点的结构化里程碑",
+                "Flexible, guidance-driven collaboration": "灵活、以指导为主的协作",
+                "Additional context (optional)": "其他信息（选填）",
+                "Links, references, constraints, or anything that might help us understand the situation.": "链接、参考、限制条件或任何有助于我们了解情况的信息。"
+            };
+            
+            // 获取翻译
+            function getTranslation(key) {
+                return translations[key] || key;
+            }
+            
+            // 生成中英文格式的内容
+            function generateBilingualContent(formData) {
+                let englishContent = "GOAOXOR Project Intake Form Submission\n\n";
+                let chineseContent = "GOAOXOR 项目申请表提交\n\n";
+                
+                // 添加每个字段
+                englishContent += `1. Name: ${formData.name}\n`;
+                chineseContent += `1. 姓名: ${formData.name}\n`;
+                
+                englishContent += `2. Email: ${formData.email}\n`;
+                chineseContent += `2. 邮箱: ${formData.email}\n`;
+                
+                englishContent += `3. Objective: ${formData.objective}\n`;
+                chineseContent += `3. 项目目标: ${formData.objective}\n`;
+                
+                englishContent += `4. Work Type: ${formData.work_type.join(', ')}\n`;
+                chineseContent += `4. 工作类型: ${formData.work_type.map(type => getTranslation(type)).join(', ')}\n`;
+                
+                englishContent += `5. Scope Clarity: ${formData.scope_clarity}\n`;
+                chineseContent += `5. 范围明确性: ${getTranslation(formData.scope_clarity)}\n`;
+                
+                englishContent += `6. Timeline: ${formData.timeline}\n`;
+                chineseContent += `6. 时间安排: ${getTranslation(formData.timeline)}\n`;
+                
+                englishContent += `7. Budget: ${formData.budget}\n`;
+                chineseContent += `7. 预算: ${getTranslation(formData.budget)}\n`;
+                
+                englishContent += `8. Work Preference: ${formData.work_preference}\n`;
+                chineseContent += `8. 工作偏好: ${getTranslation(formData.work_preference)}\n`;
+                
+                if (formData.additional_context) {
+                    englishContent += `9. Additional Context: ${formData.additional_context}\n`;
+                    chineseContent += `9. 其他信息: ${formData.additional_context}\n`;
+                }
+                
+                englishContent += `\nSubmitted at: ${new Date().toLocaleString('en-US', { timeZone: 'UTC' })}\n`;
+                chineseContent += `\n提交时间: ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}\n`;
+                
+                return `ENGLISH VERSION:\n${englishContent}\n---\n\nCHINESE VERSION:\n${chineseContent}`;
+            }
+            
+            // 验证表单
+            function validateForm() {
+                let isValid = true;
+                
+                // 重置错误状态
+                document.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error');
+                });
+                
+                document.querySelectorAll('.error-message').forEach(error => {
+                    error.style.display = 'none';
+                });
+                
+                // 验证姓名
+                const nameInput = document.getElementById('name');
+                if (!nameInput.value.trim()) {
+                    document.getElementById('name-error').style.display = 'block';
+                    nameInput.closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证邮箱
+                const emailInput = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    document.getElementById('email-error').style.display = 'block';
+                    emailInput.closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证目标
+                const objectiveInput = document.getElementById('objective');
+                if (!objectiveInput.value.trim()) {
+                    document.getElementById('objective-error').style.display = 'block';
+                    objectiveInput.closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证工作类型
+                const workTypeCheckboxes = document.querySelectorAll('input[name="work_type"]:checked');
+                if (workTypeCheckboxes.length === 0) {
+                    document.getElementById('work-type-error').style.display = 'block';
+                    document.querySelectorAll('input[name="work_type"]')[0].closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证范围明确性
+                const scopeClarity = document.querySelector('input[name="scope_clarity"]:checked');
+                if (!scopeClarity) {
+                    document.getElementById('scope-clarity-error').style.display = 'block';
+                    document.querySelectorAll('input[name="scope_clarity"]')[0].closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证时间安排
+                const timeline = document.querySelector('input[name="timeline"]:checked');
+                if (!timeline) {
+                    document.getElementById('timeline-error').style.display = 'block';
+                    document.querySelectorAll('input[name="timeline"]')[0].closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证预算
+                const budget = document.querySelector('input[name="budget"]:checked');
+                if (!budget) {
+                    document.getElementById('budget-error').style.display = 'block';
+                    document.querySelectorAll('input[name="budget"]')[0].closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // 验证工作偏好
+                const workPreference = document.querySelector('input[name="work_preference"]:checked');
+                if (!workPreference) {
+                    document.getElementById('work-preference-error').style.display = 'block';
+                    document.querySelectorAll('input[name="work_preference"]')[0].closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // 处理表单提交
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // 禁用提交按钮
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                
+                // 收集表单数据
+                const formData = {
+                    name: document.getElementById('name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    objective: document.getElementById('objective').value.trim(),
+                    work_type: Array.from(document.querySelectorAll('input[name="work_type"]:checked')).map(cb => cb.value),
+                    scope_clarity: document.querySelector('input[name="scope_clarity"]:checked').value,
+                    timeline: document.querySelector('input[name="timeline"]:checked').value,
+                    budget: document.querySelector('input[name="budget"]:checked').value,
+                    work_preference: document.querySelector('input[name="work_preference"]:checked').value,
+                    additional_context: document.getElementById('additional_context').value.trim()
+                };
+                
+                // 生成中英文内容
+                const bilingualContent = generateBilingualContent(formData);
+                
+                // 准备发送到make.com的数据
+                const makeWebhookData = {
+                    form_data: formData,
+                    bilingual_content: bilingualContent,
+                    submitted_at: new Date().toISOString(),
+                    form_version: "V2 · Revenue-First"
+                };
+                
+                try {
+                    // 这里替换为您的make.com Webhook URL
+                    const makeWebhookUrl = 'YOUR_MAKE_COM_WEBHOOK_URL_HERE';
+                    
+                    // 发送到make.com
+                    const response = await fetch(makeWebhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(makeWebhookData)
+                    });
+                    
+                    if (response.ok) {
+                        // 显示成功消息
+                        successMessage.style.display = 'block';
+                        form.reset();
+                        
+                        // 滚动到成功消息
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        throw new Error('Webhook submission failed');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    alert('There was an error submitting the form. Please try again.');
+                } finally {
+                    // 重新启用提交按钮
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit project details';
+                }
+            });
+            
+            // 实时验证
+            form.addEventListener('input', function(e) {
+                if (e.target.matches('input, textarea')) {
+                    const formGroup = e.target.closest('.form-group');
+                    if (formGroup) {
+                        formGroup.classList.remove('error');
+                        const errorElement = formGroup.querySelector('.error-message');
+                        if (errorElement) {
+                            errorElement.style.display = 'none';
+                        }
+                    }
+                }
+            });
+            
+            // 验证单选按钮和复选框
+            form.addEventListener('change', function(e) {
+                if (e.target.matches('input[type="radio"], input[type="checkbox"]')) {
+                    const formGroup = e.target.closest('.form-group');
+                    if (formGroup) {
+                        formGroup.classList.remove('error');
+                        const errorElement = formGroup.querySelector('.error-message');
+                        if (errorElement) {
+                            errorElement.style.display = 'none';
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
